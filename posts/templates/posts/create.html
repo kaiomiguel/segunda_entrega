@@ -1,0 +1,41 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Criar Novo Post{% endblock %}
+
+{% block content %}
+<div style="max-width:700px; margin:auto; font-family: Arial, sans-serif;">
+
+  <h1>Criar Novo Post</h1>
+
+  <form method="POST" style="padding:20px; border:1px solid #ccc; border-radius:5px; background:#fafafa; box-shadow:1px 1px 5px rgba(0,0,0,0.1);">
+      {% csrf_token %}
+
+      <label for="id_titulo" style="font-weight:bold;">Título:</label><br>
+      <input type="text" id="id_titulo" name="titulo" required
+             style="width:100%; padding:8px; margin:5px 0 15px 0; border:1px solid #ccc; border-radius:3px;"><br>
+
+      <label for="id_conteudo" style="font-weight:bold;">Conteúdo:</label><br>
+      <textarea id="id_conteudo" name="conteudo" rows="10" required
+                style="width:100%; padding:8px; margin:5px 0 15px 0; border:1px solid #ccc; border-radius:3px;"></textarea><br>
+
+      <label style="font-weight:bold;">Categorias:</label><br>
+      {% for categoria in categorias %}
+          <input type="checkbox" name="categorias" value="{{ categoria.id }}">
+          {{ categoria.nome }}<br>
+      {% empty %}
+          <p>Nenhuma categoria disponível.</p>
+      {% endfor %}
+      <br>
+
+      <button type="submit"
+              style="padding:10px 20px; background-color:#007bff; color:white; border:none; border-radius:4px; cursor:pointer;">
+          Publicar
+      </button>
+  </form>
+
+  <p style="margin-top:15px;">
+      <a href="{% url 'post_list' %}">Voltar para a lista de posts</a>
+  </p>
+
+</div>
+{% endblock %}

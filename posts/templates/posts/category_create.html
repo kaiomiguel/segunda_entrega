@@ -1,0 +1,23 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Criar Categoria{% endblock %}
+
+{% block content %}
+<h1>Criar Nova Categoria</h1>
+
+<form method="POST" style="max-width:600px; padding:20px; border:1px solid #ccc; border-radius:5px; background:#fafafa;">
+    {% csrf_token %}
+    
+    <label for="id_nome" style="font-weight:bold;">Nome:</label><br>
+    <input type="text" id="id_nome" name="nome" required style="width:100%; padding:8px; margin:5px 0 15px 0; border:1px solid #ccc; border-radius:3px;"><br>
+
+    <label for="id_descricao" style="font-weight:bold;">Descrição:</label><br>
+    <textarea id="id_descricao" name="descricao" rows="5" style="width:100%; padding:8px; margin:5px 0 15px 0; border:1px solid #ccc; border-radius:3px;"></textarea><br>
+
+    <button type="submit" style="padding:10px 20px; background-color:#007bff; color:white; border:none; border-radius:4px; cursor:pointer;">Criar Categoria</button>
+</form>
+
+<p style="margin-top:15px;">
+    <a href="{% url 'category_list' %}">Voltar para lista de categorias</a>
+</p>
+{% endblock %}

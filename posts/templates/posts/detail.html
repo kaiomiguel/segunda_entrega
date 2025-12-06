@@ -1,0 +1,57 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ post.titulo }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: auto; font-family: Arial, sans-serif;">
+
+  <!-- Post -->
+  <article style="border-bottom: 2px solid #ccc; padding-bottom: 20px; margin-bottom: 20px;">
+    <h1 style="margin-bottom: 5px;">{{ post.titulo }}</h1>
+    <p style="color: #555; font-size: 0.9em;">Publicado em {{ post.data_postagem|date:"d M Y, H:i" }}</p>
+    <div style="margin-top: 10px; font-size: 1.1em;">{{ post.conteudo|linebreaks }}</div>
+    
+    {% if post.categorias.all %}
+    <p style="margin-top: 10px; font-style: italic;">
+      Categorias:
+      {% for cat in post.categorias.all %}
+        {{ cat.nome }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% else %}
+      <p style="margin-top: 10px; font-style: italic;">Categorias: Sem categorias</p>
+    {% endif %}
+  </article>
+
+  <!-- Comentários -->
+  <section>
+    <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Comentários</h2>
+
+    {% if comentarios %}
+      {% for comentario in comentarios %}
+      <div style="border:1px solid #ddd; padding: 10px; margin-top: 10px; border-radius: 5px; background-color: #f9f9f9;">
+        <p style="margin:0; font-weight:bold;">{{ comentario.nome_autor }} <span style="color:#555; font-weight:normal;">em {{ comentario.data_criacao|date:"d M Y, H:i" }}</span></p>
+        <p style="margin-top:5px;">{{ comentario.conteudo }}</p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p>Sem comentários ainda.</p>
+    {% endif %}
+
+    <!-- Adicionar comentário -->
+    <div style="margin-top: 20px;">
+      <a href="{% url 'comment_create' post.id %}" style="text-decoration:none; color:white; background-color:#007BFF; padding: 10px 15px; border-radius:5px;">Adicionar comentário</a>
+    </div>
+  </section>
+
+  <p>Categorias:
+    {% for categoria in post.categorias.all %}
+        <a href="{% url 'category_detail' categoria.id %}">{{ categoria.nome }}</a>{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        Sem categorias
+    {% endfor %}
+</p>
+
+
+</div>
+{% endblock %}

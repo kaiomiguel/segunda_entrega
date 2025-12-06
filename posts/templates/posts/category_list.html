@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block content %}
+<div style="max-width:700px; margin:auto; font-family: Arial, sans-serif;">
+
+  <h1>Categorias</h1>
+
+  <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;">
+      {% for categoria in categorias %}
+          <a href="{% url 'category_detail' categoria.id %}" 
+             style="text-decoration:none; color:white; background-color:#007bff; padding:10px 15px; border-radius:5px; display:inline-block;">
+             {{ categoria.nome }}
+          </a>
+      {% empty %}
+          <p>Nenhuma categoria cadastrada.</p>
+      {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Categoria: {{ categoria.nome }}{% endblock %}
+
+{% block content %}
+<h1>Categoria: {{ categoria.nome }}</h1>
+
+{% if categoria.descricao %}
+<p>{{ categoria.descricao }}</p>
+{% endif %}
+
+{% if posts %}
+    {% for post in posts %}
+        <div style="border:1px solid #ccc; padding:15px; margin-bottom:20px; border-radius:5px;">
+            <h2><a href="{% url 'post_detail' post.id %}">{{ post.titulo }}</a></h2>
+            <p>{{ post.conteudo|truncatewords:30 }}...</p>
+            <p>Publicado em {{ post.data_postagem|date:"d/m/Y H:i" }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Nenhum post nesta categoria.</p>
+{% endif %}
+
+<a href="{% url 'category_list' %}">Voltar para Categorias</a>
+{% endblock %}

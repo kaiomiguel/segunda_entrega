@@ -1,0 +1,17 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+<h2>Editar Post</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <label>Título:</label><br>
+    <input type="text" name="titulo" value="{{ post.titulo }}"><br><br>
+
+    <label>Conteúdo (HTML permitido):</label><br>
+    <textarea name="conteudo" rows="10">{{ post.conteudo }}</textarea><br><br>
+
+    <button type="submit">Salvar alterações</button>
+</form>
+{% endblock %}
